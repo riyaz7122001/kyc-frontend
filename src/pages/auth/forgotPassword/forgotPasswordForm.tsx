@@ -1,14 +1,14 @@
-import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm } from 'react-hook-form';
 import { Form, Link } from "react-router-dom";
-import { FormGroup, FormFeedback } from "reactstrap";
+import { FormFeedback } from "reactstrap";
 import CustomButton from "../../../components/customButton";
 import CustomInput from "../../../components/customInput";
 import CustomLabel from "../../../components/customLabel";
 import Loader from "../../../components/customSpinner";
 import { forgotPasswordSchema, ForgotPasswordType } from "../../../schemas/auth";
 import { LoadingState } from "../../../types";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 export default function ForgotPasswordForm() {
     const { register, handleSubmit, formState: { errors } } = useForm<ForgotPasswordType>({

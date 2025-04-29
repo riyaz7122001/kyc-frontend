@@ -8,10 +8,10 @@ import HideShowPassword from "../../../components/hideShowPassword";
 import { resetPasswordSchema, ResetPasswordType } from "../../../schemas/auth";
 import { LoadingState } from "../../../types";
 import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
+import { yupResolver } from "@hookform/resolvers/yup";
 
-export default function ResetPasswordForm() {
+export default function SetPasswordForm() {
     const { register, handleSubmit, formState: { errors } } = useForm<ResetPasswordType>({
         resolver: yupResolver(resetPasswordSchema)
     });
