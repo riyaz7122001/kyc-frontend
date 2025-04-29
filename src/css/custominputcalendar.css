@@ -1,0 +1,29 @@
+.calendar-input-group {
+    width: 26.4rem;
+    border-radius: 0.36rem;
+}
+
+.calendar-input-text {
+    background-color: var(--white);
+    border-left: none;
+    cursor: pointer;
+    border-top-right-radius: 0.36rem !important;
+    border-bottom-right-radius: 0.36rem !important;
+}
+
+.calendar-input {
+    border-right: none !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}
+
+.calendar-clear-button:after {
+    background-color: #d2d2d2 !important;
+    height: 1.2rem;
+    width: 1.2rem;
+    margin-right: 2rem;
+}
+
+.calendar-clear-button {
+    margin-right: 1.5rem;
+}

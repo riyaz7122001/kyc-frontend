@@ -1,0 +1,26 @@
+@font-face {
+    font-family: DMSans-Bold;
+    src: url(../assets/fonts/DM_Sans/DMSans-Bold.ttf);
+}
+
+@font-face {
+    font-family: DMSans-Medium;
+    src: url(../assets/fonts/DM_Sans/DMSans-Medium.ttf);
+}
+
+@font-face {
+    font-family: DMSans-Regular;
+    src: url(../assets/fonts/DM_Sans/DMSans-Regular.ttf);
+}
+
+.dmsans-bold {
+    font-family: DMSans-Bold, sans-serif !important;
+}
+
+.dmsans-medium {
+    font-family: DMSans-Medium, sans-serif !important;
+}
+
+.dmsans-regular {
+    font-family: DMSans-Regular, sans-serif !important;
+}

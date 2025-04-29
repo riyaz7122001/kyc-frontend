@@ -1,0 +1,12 @@
+:root {
+    --primary: #8e186d;
+    --white: #ffffff;
+    --black: #000000;
+    --success: #16a34a;
+    --error: #b91c1c;
+    --deep-greige: #726e6c;
+    --medium-greige: #c8c8c8;
+    --greige: #f2f2ef;
+    --zoom-level: 100%;
+    --max-width: 1300px
+}

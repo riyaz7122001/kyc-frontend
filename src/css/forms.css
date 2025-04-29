@@ -1,0 +1,21 @@
+.hide-show-password-input {
+    width: unset !important;
+    border-right: unset !important;
+    border-top-right-radius: unset !important;
+    border-bottom-right-radius: unset !important;
+}
+
+.custom-input {
+    border: 0.06rem solid #d4d4d8;
+    border-radius: 0.36rem;
+    width: 26.4rem;
+    height: 2.64rem;
+}
+
+.custom-label {
+    font-size: 0.84rem;
+}
+
+.custom-button {
+    background-color: var(--primary);
+}

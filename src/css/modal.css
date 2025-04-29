@@ -1,0 +1,102 @@
+.custom-modal-header {
+    border: 0 !important;
+}
+
+.custom-modal-title {
+    font-family: DMSans-Bold, sans-serif;
+    font-size: 1.68rem;
+}
+
+.modal-title {
+    width: 100% !important;
+    text-align: center !important;
+}
+
+.modal-dialog {
+    max-width: 35.04rem;
+}
+
+.modal-body {
+    padding: 0 4.32rem 1.8rem 4.32rem;
+}
+
+.customized-email-modal {
+    max-width: 63.78rem !important;
+}
+
+.customized-email-modal>.modal-content {
+    height: 33.48rem;
+}
+
+.send-mail-button {
+    width: 12.06rem !important;
+}
+
+.delete-user-modal {
+    max-width: 27rem !important;
+}
+
+.delete-user-modal-title {
+    font-family: DMSans-Bold, sans-serif;
+    font-size: 1.2rem;
+}
+
+.delete-user-form-title {
+    font-family: DMSans-Medium, sans-serif;
+    font-size: 0.84rem;
+    color: #71717A;
+    justify-content: center;
+}
+
+.delete-user-modal>.modal-content>.modal-body {
+    padding: 1rem !important;
+}
+
+.delete-user-form-cancel {
+    background-color: unset !important;
+    color: var(--deep-greige) !important;
+    border: 1px solid #C8C8C8 !important;
+    height: 2.64rem;
+    width: 9rem
+}
+
+.delete-user-form-delete {
+    background-color: #B91C1C !important;
+    color: var(--white) !important;
+    border: 1px solid #B91C1C !important;
+    height: 2.64rem;
+    width: 9rem
+}
+
+.payment-details-modal {
+    max-width: 53.34rem;
+}
+
+.payment-details-modal>.modal-content {
+    height: 39.6rem;
+}
+
+.payment-details-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2.5rem;
+    margin-bottom: 1.86rem;
+}
+
+.payment-details-item {
+    display: flex;
+    gap: 0.3rem;
+    font-size: 0.96rem;
+}
+
+.payment-details-item-title {
+    color: var(--deep-greige);
+}
+
+.payment-status-paid {
+    border: 1px solid var(--success);
+    padding: 0.18rem 1.68rem;
+    background-color: var(--success);
+    color: var(--white);
+    border-radius: 1.74rem;
+}

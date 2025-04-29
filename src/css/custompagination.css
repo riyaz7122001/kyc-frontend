@@ -1,0 +1,21 @@
+.pagination-container {
+    height: 3.3rem;
+    justify-content: space-between;
+    padding-right: 5.94rem;
+    padding-left: 5.94rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.pagination-nav {
+    gap: 0.84rem;
+    font-size: 1.02rem;
+    color: var(--deep-greige);
+    cursor: pointer;
+}
+
+.pagination-links {
+    font-family: DMSans-Medium, sans-serif;
+    font-size: 0.84rem;
+    height: 100%;
+    width: 2.1rem
+}

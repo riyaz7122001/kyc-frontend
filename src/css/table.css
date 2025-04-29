@@ -1,0 +1,35 @@
+.table-header-container {
+    height: 4.8rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 2.1rem;
+    padding-right: 2.1rem;
+}
+
+.table-header-title {
+    font-family: DMSans-Bold, sans-serif;
+    font-size: 1.44rem;
+}
+
+.header-navitem-tabs {
+    display: flex;
+    width: auto; 
+    max-width: 100%; 
+}
+
+.header-navitem-tabs:first-child {
+    margin-right: 2rem; 
+}
+
+.active-link {
+    border-bottom: 2px solid var(--primary) !important;
+    color: var(--primary) !important;
+}
+
+.payment-row-name {
+    color: var(--primary);
+    text-decoration: underline;
+    font-family: DMSans-Bold, sans-serif;
+    cursor: pointer
+}

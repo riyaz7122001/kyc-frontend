@@ -1,0 +1,114 @@
+.dashboard-card-container {
+    display: flex;
+    gap: 1.92rem
+}
+
+.test-card-row {
+    display: flex;
+    gap: 0.96rem;
+    justify-content: space-around;
+}
+
+.test-conducted-row {
+    width: 61.68rem;
+}
+
+.dashbord-title {
+    font-family: DMSans-Bold, sans-serif;
+    font-size: 1.44rem;
+    margin-bottom: 2.16rem
+}
+
+.total-test-card {
+    height: 10.26rem;
+    width: 14.4rem;
+    background-color: var(--primary);
+    border-radius: 0.72rem
+}
+
+.total-test-card-container {
+    padding: 1.2rem;
+    height: 100%;
+}
+
+.test-icon-container {
+    height: 2.88rem;
+    width: 2.88rem;
+    border-radius: 50%;
+    background-color: var(--white);
+    margin-bottom: 0.48rem;
+}
+
+.total-test-title {
+    font-family: DMSans-Regular, sans-serif;
+    color: var(--white);
+    font-size: 0.96rem;
+}
+
+.total-test-count {
+    font-family: DMSans-Bold, sans-serif;
+    color: var(--white);
+    font-size: 2.16rem;
+}
+
+.test-conducted-title {
+    margin-bottom: 0.96rem;
+    margin-top: 0.54rem;
+    font-family: DMSans-Medium, sans-serif;
+    font-size: 1.2rem;
+    color: #71717A;
+}
+
+.test-card {
+    width: 10.8rem;
+    height: 7.2rem;
+    background-color: var(--greige);
+    border-radius: 0.72rem;
+    padding: 1.2rem;
+}
+
+.test-card-container {
+    height: 100%;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+}
+
+.test-card-title {
+    font-family: DMSans-Bold, sans-serif;
+    font-size: 0.96rem;
+}
+
+.test-card-count {
+    font-family: DMSans-Bold, sans-serif;
+    font-size: 1.68rem;
+}
+
+.dashboard-card-layout-container {
+    padding: 1.92rem;
+    padding-bottom: 3.12rem;
+    height: 100%
+}
+
+@media only screen and (max-device-width: 600px) {
+    .card-layout {
+        height: 100%;
+    }
+
+    .dashboard-card-container,
+    .test-card-row {
+        flex-flow: column;
+    }
+
+    .test-card-row {
+        gap: 0.96rem;
+    }
+
+    .test-conducted-row {
+        width: 100%;
+    }
+
+    .router-outlet {
+        height: unset !important;
+    }
+}

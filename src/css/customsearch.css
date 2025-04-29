@@ -1,0 +1,19 @@
+.search-input {
+    border: 0.06rem solid #F4F4F5;
+    border-radius: 0.36rem;
+    width: 18rem;
+    height: 2.64rem;
+    border-left: none;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    background-color: #F4F4F5;
+}
+
+.search-input-group-text {
+    background-color: #F4F4F5;
+    border: 0.06rem solid #F4F4F5;
+}
+
+.search-icon {
+    font-size: 1.2rem
+}

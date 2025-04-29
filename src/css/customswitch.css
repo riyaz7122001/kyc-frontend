@@ -1,0 +1,12 @@
+.form-check-input:checked {
+    background-color: var(--success);
+    border-color: var(--success);
+    height: 1.44rem;
+    width: 2.64rem;
+}
+
+.form-check-input {
+    height: 1.44rem;
+    width: 2.64rem !important;
+    cursor: pointer;
+}
