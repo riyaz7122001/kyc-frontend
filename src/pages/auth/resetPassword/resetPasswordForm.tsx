@@ -1,5 +1,5 @@
 import { Form } from "react-router-dom";
-import { FormGroup, FormFeedback } from "reactstrap";
+import { FormFeedback } from "reactstrap";
 import CustomButton from "../../../components/customButton";
 import CustomInput from "../../../components/customInput";
 import CustomLabel from "../../../components/customLabel";
@@ -25,23 +25,21 @@ export default function ResetPasswordForm() {
 
     return (
         <Form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-            <FormGroup>
+            <div>
                 <CustomLabel htmlFor="password" required>
-                    New Password
+                    Password
                 </CustomLabel>
                 <HideShowPassword>
                     <CustomInput
                         id="password"
-                        placeholder="New Password"
-                        invalid={!!errors.password}
-                        className="hide-show-password-input"
-                        autoComplete="new-password"
-                        {...register("password")}
+                        placeholder="Password"
+                        autoComplete="current-password"
+                        {...register('password')}
                     />
-                    <FormFeedback>{errors.password?.message}</FormFeedback>
                 </HideShowPassword>
-            </FormGroup>
-            <FormGroup>
+                {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password.message}</p>}
+            </div>
+            <div>
                 <CustomLabel htmlFor="confirmPassword" required>
                     Confirm New Password
                 </CustomLabel>
@@ -50,13 +48,12 @@ export default function ResetPasswordForm() {
                         id="confirmPassword"
                         placeholder="Confirm Password"
                         invalid={!!errors.confirmPassword}
-                        className="hide-show-password-input"
-                        autoComplete="new-password"
+                        autoComplete="confirmPassword"
                         {...register("confirmPassword")}
                     />
                     <FormFeedback>{errors.confirmPassword?.message}</FormFeedback>
                 </HideShowPassword>
-            </FormGroup>
+            </div>
             <CustomButton type='submit' className='mt-2 w-full'>
                 Reset
             </CustomButton>

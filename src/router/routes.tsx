@@ -1,5 +1,6 @@
 import { lazy } from "react";
 import PageNotFound from "../pages/notfound";
+import CitizenPage from "../pages/citizen";
 
 const Login = lazy(() => import("../pages/auth/login"));
 const ForgotPassword = lazy(() => import("../pages/auth/forgotPassword"));
@@ -30,13 +31,18 @@ export const routes = [
         needsAuth: false
     },
     {
-        path: "/admin",
+        path: "/",
         element: <AdminLayout />,
         children: [
             {
                 path: "/admin",
                 element: <AdminDashboard />,
                 index: true,
+                needsAuth: true
+            },
+            {
+                path: "/citizen",
+                element: <CitizenPage />,
                 needsAuth: true
             }
         ],

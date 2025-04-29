@@ -1,5 +1,98 @@
 @import "tailwindcss";
 
+@layer base {
+  :root {
+    --primary: #8e186d;
+    --primary-light: #b23c91;
+    --primary-dark: #6b1154;
+    --greige: #f2f2ef;
+    --deep-greige: #d8d8d2;
+    --white: #ffffff;
+    --max-width: 1200px;
+    --zoom-level: 16px;
+  }
+
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  body {
+    @apply bg-primary min-h-screen text-gray-800;
+    font-family: DMSans-Medium, sans-serif;
+    font-size: var(--zoom-level);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-medium leading-tight;
+  }
+  
+  ::selection {
+    @apply text-white bg-primary;
+  }
+  
+  ::-moz-selection {
+    @apply text-white bg-primary;
+  }
+}
+
+@layer components {
+  .card {
+    @apply rounded-xl bg-white shadow-md p-6 transition-all duration-300 hover:shadow-lg;
+  }
+  
+  .card-primary {
+    @apply bg-primary text-white;
+  }
+  
+  .btn {
+    @apply inline-flex items-center justify-center px-4 py-2 rounded-lg font-medium transition-colors duration-200;
+  }
+  
+  .btn-primary {
+    @apply bg-primary text-white hover:bg-primary-light;
+  }
+  
+  .sidebar-item {
+    @apply flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-white/40 rounded-lg transition-colors;
+  }
+  
+  .sidebar-item.active {
+    @apply bg-white text-primary font-medium;
+  }
+  
+  .nav-item {
+    @apply flex items-center gap-2 px-3 py-2 text-gray-600 hover:text-primary hover:bg-white/40 rounded-lg transition-colors;
+  }
+  
+  .flex-center {
+    @apply flex justify-center items-center;
+  }
+  
+  .color-primary {
+    @apply text-primary;
+  }
+  
+  .color-deep-greige {
+    color: var(--deep-greige);
+  }
+  
+  .max-width {
+    max-width: var(--max-width) !important;
+  }
+  
+  .hide-show-password-input {
+    width: unset !important;
+    border-right: unset !important;
+    border-top-right-radius: unset !important;
+    border-bottom-right-radius: unset !important;
+  }
+  
+  .text-primary {
+    @apply text-primary text-base;
+  }
+}
+
+/* Full screen elements */
 html,
 body,
 #root,
@@ -9,51 +102,4 @@ body,
     width: 100%;
     margin: 0;
     padding: 0;
-    background-color: var(--greige);
-    font-size: var(--zoom-level);
-    font-family: DMSans-Medium, sans-serif;
-}
-
-::-moz-selection {
-    color: var(--white);
-    background: var(--primary);
-}
-
-::selection {
-    color: var(--white);
-    background: var(--primary);
-}
-
-.flex-center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.color-primary {
-    color: var(--primary);
-}
-
-.color-deep-greige {
-    color: var(--deep-greige);
-}
-
-.bg-primary {
-    background-color: var(--primary);
-}
-
-.max-width {
-    max-width: var(--max-width);
-}
-
-.hide-show-password-input {
-    width: unset !important;
-    border-right: unset !important;
-    border-top-right-radius: unset !important;
-    border-bottom-right-radius: unset !important;
-}
-
-.text-primary {
-    color: var(--primary);
-    font-size: 16px;
 }
