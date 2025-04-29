@@ -156,7 +156,7 @@ function Dashboard() {
                                 initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.5 + index * 0.1 }}
-                                className="w-full text-left p-3 text-sm font-medium text-gray-700 rounded-lg hover:bg-primary hover:text-white transition-colors flex items-center"
+                                className="w-full text-left p-3 text-sm font-medium text-gray-700 rounded-lg hover:bg-primary hover:text-primary transition-colors flex items-center "
                             >
                                 <span className="w-6 h-6 rounded-full bg-primary/10 text-primary flex items-center justify-center mr-3">
                                     {index + 1}

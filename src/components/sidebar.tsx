@@ -1,13 +1,6 @@
 import { NavLink } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import {
-    RiDashboardLine,
-    RiTeamLine,
-    RiSettings4Line,
-    RiFileList3Line,
-    RiMenuFoldLine,
-    RiMenuUnfoldLine
-} from 'react-icons/ri'
+import { RiDashboardLine, RiTeamLine, RiMenuFoldLine, RiMenuUnfoldLine } from 'react-icons/ri'
 
 const sidebarAnimation = {
     open: { width: '240px', transition: { duration: 0.3 } },
@@ -50,49 +43,27 @@ function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
             {/* Navigation */}
             <nav className="flex-1 py-4 px-3">
                 <ul className="space-y-2">
-                    <li>
+                    <li className='flex rounded'>
                         <NavLink
                             to="/admin"
                             className={({ isActive }) =>
-                                `sidebar-item ${isActive ? 'active' : ''}`
+                                `sidebar-item flex p-2 gap-2 items-center rounded ${isActive ? 'active text-white bg-primary w-full' : ''}`
                             }
                             end
                         >
                             <RiDashboardLine size={20} />
-                            {isOpen && <span>Dashboard</span>}
+                            {isOpen && <span className=''>Dashboard</span>}
                         </NavLink>
                     </li>
                     <li>
                         <NavLink
                             to="/citizen"
                             className={({ isActive }) =>
-                                `sidebar-item ${isActive ? 'active' : ''}`
+                                `sidebar-item flex p-2 gap-2 items-center rounded ${isActive ? 'active text-white bg-primary w-full' : ''}`
                             }
                         >
                             <RiTeamLine size={20} />
                             {isOpen && <span>Citizens</span>}
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink
-                            to="/reports"
-                            className={({ isActive }) =>
-                                `sidebar-item ${isActive ? 'active' : ''}`
-                            }
-                        >
-                            <RiFileList3Line size={20} />
-                            {isOpen && <span>Reports</span>}
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink
-                            to="/settings"
-                            className={({ isActive }) =>
-                                `sidebar-item ${isActive ? 'active' : ''}`
-                            }
-                        >
-                            <RiSettings4Line size={20} />
-                            {isOpen && <span>Settings</span>}
                         </NavLink>
                     </li>
                 </ul>
