@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { RiBellLine, RiSearchLine, RiMenuLine, RiLogoutBoxLine, RiUser3Line, RiLockPasswordLine } from 'react-icons/ri'
+import { RiMenuLine, RiLogoutBoxLine, RiUser3Line, RiLockPasswordLine } from 'react-icons/ri'
 
 type NavbarProps = {
     user: {

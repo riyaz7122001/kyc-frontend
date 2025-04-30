@@ -1,8 +1,8 @@
 import { Card, CardTitle, CardBody } from "reactstrap";
-import LoginForm from "./loginForm";
+import OtpPage from "./otpPage";
 import Logo from '../../../assets/images/logo.svg';
 
-export default function Login() {
+export default function Otp() {
     return (
         <div className="flex-center full-screen">
             <Card className="w-[35rem] h-[36rem] p-16 rounded-2xl shadow-2xl bg-white border-[0.06rem] border-transparent">
@@ -13,7 +13,7 @@ export default function Login() {
                     </span>
                 </CardTitle >
                 <CardBody >
-                    <LoginForm />
+                    <OtpPage />
                 </CardBody>
             </Card >
         </div >

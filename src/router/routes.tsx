@@ -3,6 +3,8 @@ import PageNotFound from "../pages/notfound";
 import CitizenPage from "../pages/citizen";
 
 const Login = lazy(() => import("../pages/auth/login"));
+const SignUp = lazy(() => import("../pages/auth/signup"));
+const Otp = lazy(() => import("../pages/auth/otp"));
 const ForgotPassword = lazy(() => import("../pages/auth/forgotPassword"));
 const ResetPassword = lazy(() => import("../pages/auth/resetPassword"));
 const SetPassword = lazy(() => import("../pages/auth/setPassword"));
@@ -11,8 +13,18 @@ const AdminDashboard = lazy(() => import("../pages/dashboard/adminDashboard"));
 
 export const routes = [
     {
-        path: "/login",
+        path: "/admin/login",
         element: <Login />,
+        needsAuth: false
+    },
+    {
+        path: "/admin/login/otp",
+        element: <Otp />,
+        needsAuth: false
+    },
+    {
+        path: "/signup",
+        element: <SignUp />,
         needsAuth: false
     },
     {

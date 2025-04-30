@@ -29,3 +29,15 @@ export const showToast = debounce((type: "success" | "error", message?: string) 
         });
     }
 }, 300);
+
+export const handleApiError = (error: any, defaultMessage: string = "An error occurred") => {
+    console.error(error);
+    const errors = error?.response?.data?.errors;
+    if (errors && Array.isArray(errors) && errors.length > 0) {
+        const firstError = Object.values(errors[0]).join(", ");
+        showToast("error", firstError);
+    } else {
+        const fallbackMessage = error?.response?.data?.message || defaultMessage;
+        showToast("error", fallbackMessage);
+    }
+};

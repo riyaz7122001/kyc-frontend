@@ -22,7 +22,7 @@ function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
         >
             {/* Logo */}
             <div className="flex items-center justify-between p-4 h-16 border-b border-gray-200">
-                <div className="flex items-center">
+                <div className="flex items-center gap-0.5">
                     <div className="w-9 h-9 rounded-lg bg-primary flex items-center justify-center text-white font-bold text-xl">D</div>
                     {isOpen && (
                         <motion.span
@@ -43,7 +43,7 @@ function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
             {/* Navigation */}
             <nav className="flex-1 py-4 px-3">
                 <ul className="space-y-2">
-                    <li className='flex rounded'>
+                    <li className='flex rounded gap-0.5'>
                         <NavLink
                             to="/admin"
                             className={({ isActive }) =>
@@ -73,8 +73,7 @@ function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
             {isOpen && (
                 <div className="p-4 border-t border-gray-200">
                     <div className="text-xs text-gray-500">
-                        <p>© 2025 MyDashboard</p>
-                        <p>v1.0.0</p>
+                        <p>© KYC Dashboard</p>
                     </div>
                 </div>
             )}

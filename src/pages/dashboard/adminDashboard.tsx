@@ -71,6 +71,8 @@ function Dashboard() {
                 >
                     <motion.div custom={0} variants={cardVariants}>
                         <DashboardCard
+                            key={1}
+                            index={1}
                             title="Total Citizens"
                             value="24,521"
                             icon={<RiTeamLine size={24} className="text-primary" />}
@@ -82,6 +84,8 @@ function Dashboard() {
 
                     <motion.div custom={1} variants={cardVariants}>
                         <DashboardCard
+                            key={2}
+                            index={2}
                             title="Departments"
                             value="32"
                             icon={<RiBuilding4Line size={24} className="text-primary" />}
@@ -92,6 +96,8 @@ function Dashboard() {
 
                     <motion.div custom={2} variants={cardVariants}>
                         <DashboardCard
+                            key={3}
+                            index={3}
                             title="Applications"
                             value="1,286"
                             icon={<RiFileList3Line size={24} className="text-primary" />}
@@ -102,6 +108,8 @@ function Dashboard() {
 
                     <motion.div custom={3} variants={cardVariants}>
                         <DashboardCard
+                            key={4}
+                            index={4}
                             title="Scheduled Appointments"
                             value="842"
                             icon={<RiCalendarCheckLine size={24} className="text-primary" />}

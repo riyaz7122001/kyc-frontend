@@ -6,6 +6,7 @@ type TrendType = {
 };
 
 type DashboardCardProps = {
+    index: number;
     title: string;
     value: string;
     icon: React.ReactNode;
@@ -14,10 +15,10 @@ type DashboardCardProps = {
     trend?: TrendType | null;
 };
 
-function DashboardCard({ title, value, icon, description, isPrimary = false, trend = null }: DashboardCardProps) {
+function DashboardCard({ index, title, value, icon, description, isPrimary = false, trend = null }: DashboardCardProps) {
     return (
         <motion.div
-            className={`card ${isPrimary ? 'card-primary' : ''}`}
+            className={`card w-full p-5 rounded-2xl ${isPrimary && index === 1 ? 'bg-primary' : 'bg-white'}`}
             whileHover={{ y: -5 }}
             transition={{ duration: 0.2 }}
         >
@@ -30,7 +31,7 @@ function DashboardCard({ title, value, icon, description, isPrimary = false, tre
                         {value}
                     </p>
                 </div>
-                <div className={`p-3 rounded-lg ${isPrimary ? 'bg-white/20' : 'bg-primary/10'}`}>
+                <div className={`p-3 rounded-lg ${isPrimary ? 'bg-white' : 'bg-primary/10'}`}>
                     {icon}
                 </div>
             </div>

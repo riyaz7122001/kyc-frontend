@@ -103,7 +103,7 @@ function CitizenPage() {
                     <p className="text-gray-500 mt-1">View and manage citizen records</p>
                 </div>
 
-                <button className="btn btn-primary inline-flex">
+                <button className="btn btn-primary inline-flex items-center bg-primary p-2 text-white rounded">
                     <RiAddLine className="mr-2" />
                     Add New Citizen
                 </button>
