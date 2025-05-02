@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { RiSearchLine, RiFilterLine, RiAddLine, RiUser3Line, RiMailLine, RiPhoneLine } from 'react-icons/ri'
+import { handleApiError } from '../../helpers';
+import { getCitizens } from '../../services';
+import { LoadingState } from '../../types';
 
-type mockDataType = {
+type CitizenDetails = {
     id: string;
     name: string;
     email: string;
@@ -12,62 +15,31 @@ type mockDataType = {
 }[]
 
 function CitizenPage() {
-    const [isLoading, setIsLoading] = useState(true)
-    const [citizens, setCitizens] = useState<mockDataType>([])
-    const [searchTerm, setSearchTerm] = useState('')
+    const [loading, setLoading] = useState<LoadingState>("idle")
+    const [citizens, setCitizens] = useState<CitizenDetails>([])
+    const [searchTerm, setSearchTerm] = useState('');
+    const role = sessionStorage.getItem("kno-access");
+    const [pagination, setPagination] = useState<{ size: number; page: number; totalRecords: number }>({
+        page: 1,
+        size: 10,
+        totalRecords: 0
+    });
 
     useEffect(() => {
-        // Simulate data fetching
-        const timer = setTimeout(() => {
-            // Mock data for citizens
-            const mockData = [
-                {
-                    id: 'CT-001',
-                    name: 'John Smith',
-                    email: 'john.smith@example.com',
-                    phone: '(555) 123-4567',
-                    address: '123 Main St, Anytown, CA 94321',
-                    status: 'Active'
-                },
-                {
-                    id: 'CT-002',
-                    name: 'Sarah Johnson',
-                    email: 'sarah.johnson@example.com',
-                    phone: '(555) 234-5678',
-                    address: '456 Oak Ave, Somewhere, NY 10101',
-                    status: 'Active'
-                },
-                {
-                    id: 'CT-003',
-                    name: 'Michael Brown',
-                    email: 'michael.brown@example.com',
-                    phone: '(555) 345-6789',
-                    address: '789 Pine Rd, Nowhere, TX 75001',
-                    status: 'Inactive'
-                },
-                {
-                    id: 'CT-004',
-                    name: 'Emily Davis',
-                    email: 'emily.davis@example.com',
-                    phone: '(555) 456-7890',
-                    address: '321 Cedar Ln, Anywhere, WA 98001',
-                    status: 'Active'
-                },
-                {
-                    id: 'CT-005',
-                    name: 'James Wilson',
-                    email: 'james.wilson@example.com',
-                    phone: '(555) 567-8901',
-                    address: '654 Elm St, Someplace, FL 33101',
-                    status: 'Pending'
-                }
-            ]
+        const fetchCitizen = async () => {
+            try {
+                setLoading("loading");
+                const response = await getCitizens(JSON.parse(role!), pagination.size, pagination.page);
+                console.log("response", response.data.data.rows);
+                setCitizens(response.data.data)
+                setLoading("idle");
+            } catch (error) {
+                setLoading("error");
+                handleApiError(error, "Error while fetching citizens");
+            }
 
-            setCitizens(mockData)
-            setIsLoading(false)
-        }, 1200)
-
-        return () => clearTimeout(timer)
+        }
+        fetchCitizen();
     }, [])
 
     const filteredCitizens = citizens.filter(citizen =>
@@ -130,7 +102,7 @@ function CitizenPage() {
 
             {/* Citizens table */}
             <div className="bg-white rounded-xl shadow-md overflow-hidden">
-                {isLoading ? (
+                {loading === "idle" ? (
                     <div className="animate-pulse p-6">
                         <div className="h-8 bg-gray-200 rounded w-1/4 mb-6"></div>
                         <div className="space-y-4">
@@ -234,7 +206,7 @@ function CitizenPage() {
                     </div>
                 )}
 
-                {!isLoading && (
+                {loading === "idle" && (
                     <div className="px-6 py-4 border-t border-gray-200 flex items-center justify-between bg-gray-50">
                         <div className="text-sm text-gray-500">
                             Showing {filteredCitizens.length} of {citizens.length} citizens

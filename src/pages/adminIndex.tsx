@@ -2,18 +2,33 @@ import { Outlet } from "react-router-dom";
 import "../css/layout.css";
 import Sidebar from "../components/sidebar";
 import ChangePasswordModal from "../components/changePasswordModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "../components/navbar";
+import { handleApiError } from "../helpers";
+import { getUserDetails } from "../services";
+import { UserDetails } from "../types";
 
 function DashboardLayout() {
     const [showPasswordModal, setShowPasswordModal] = useState<boolean>(false)
     const [sidebarOpen, setSidebarOpen] = useState<boolean>(true);
 
-    const [user, setUser] = useState({
-        name: 'Riyaz Shaikh',
-        email: 'riyaz.shaikh@example.com',
-        role: 'Administrator'
-    })
+    const [user, setUser] = useState<UserDetails | null>(null)
+
+    const role = sessionStorage.getItem("kno-access");
+    console.log("role", JSON.parse(role!))
+
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                const response = await getUserDetails(JSON.parse(role!));
+                console.log("response", response.data.data);
+                setUser(response.data.data);
+            } catch (error) {
+                handleApiError(error, "Getting error while fetching user data");
+            }
+        }
+        fetchUserData();
+    }, [])
 
     const toggleSidebar = () => setSidebarOpen(prev => !prev)
 

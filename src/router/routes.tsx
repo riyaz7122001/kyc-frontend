@@ -13,12 +13,12 @@ const AdminDashboard = lazy(() => import("../pages/dashboard/adminDashboard"));
 
 export const routes = [
     {
-        path: "/admin/login",
+        path: "/login",
         element: <Login />,
         needsAuth: false
     },
     {
-        path: "/admin/login/otp",
+        path: "/login/otp",
         element: <Otp />,
         needsAuth: false
     },
@@ -45,6 +45,7 @@ export const routes = [
     {
         path: "/",
         element: <AdminLayout />,
+        needsAuth: true,
         children: [
             {
                 path: "/admin",

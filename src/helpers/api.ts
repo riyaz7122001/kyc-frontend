@@ -28,6 +28,8 @@ Axios.interceptors.response.use(
             ) {
                 showToast('error', err.response.data.message);
                 window.location.href = `/login`;
+                sessionStorage.clear();
+                localStorage.clear();
                 return Promise.reject("");
             }
         }

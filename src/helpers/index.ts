@@ -41,3 +41,8 @@ export const handleApiError = (error: any, defaultMessage: string = "An error oc
         showToast("error", fallbackMessage);
     }
 };
+
+export const isUserAuthenticated = () => {
+    const token = sessionStorage.getItem('kno-access');
+    return !!token;
+}

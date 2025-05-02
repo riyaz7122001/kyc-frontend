@@ -23,9 +23,13 @@ export default function LoginForm() {
         const { email, password } = data;
         try {
             const response = await sendOtp(email, password);
-            console.log("response", response)
             showToast("success", response.data?.message);
-            navigate(`/admin/login/otp`);
+            navigate(`/login/otp`, {
+                state: {
+                    email,
+                    password
+                }
+            });
         } catch (error) {
             setLoading("error");
             handleApiError(error, "Error while logging user");

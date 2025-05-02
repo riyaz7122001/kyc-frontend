@@ -2,17 +2,39 @@ import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { RiTeamLine, RiBuilding4Line, RiFileList3Line, RiCalendarCheckLine } from 'react-icons/ri'
 import DashboardCard from '../../components/dashboardCard'
+import { handleApiError } from '../../helpers'
+import { LoadingState } from '../../types'
+import { getDashboardDetails } from '../../services'
+
+type DashboardDetails = {
+    totalUsers: 5,
+    kycStatusCounts: {
+        pending: number;
+        processing: number;
+        verified: number;
+        rejected: number;
+    }
+}
 
 function Dashboard() {
-    const [isLoading, setIsLoading] = useState(true)
+    const [loading, setLoading] = useState<LoadingState>("idle");
+    const [dashboard, setDashboard] = useState<DashboardDetails | null>(null);
+    const role = sessionStorage.getItem("kno-access");
 
     useEffect(() => {
-        // Simulate loading data
-        const timer = setTimeout(() => {
-            setIsLoading(false)
-        }, 1000)
-
-        return () => clearTimeout(timer)
+        const fetchData = async () => {
+            try {
+                setLoading("loading")
+                const response = await getDashboardDetails(JSON.parse(role!));
+                console.log("response", response.data.data)
+                setDashboard(response.data.data);
+                setLoading("idle");
+            } catch (error) {
+                setLoading("error");
+                handleApiError(error, "Error while fetching dashboard details");
+            }
+        }
+        fetchData();
     }, [])
 
     const cardVariants = {
@@ -45,7 +67,7 @@ function Dashboard() {
                 <p className="text-gray-500 mt-1">Welcome back, here's your admin dashboard</p>
             </div>
 
-            {isLoading ? (
+            {loading === "loading" ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     {[...Array(4)].map((_, i) => (
                         <div key={i} className="card animate-pulse">
@@ -74,7 +96,7 @@ function Dashboard() {
                             key={1}
                             index={1}
                             title="Total Citizens"
-                            value="24,521"
+                            value={String(dashboard?.totalUsers)}
                             icon={<RiTeamLine size={24} className="text-primary" />}
                             description="15% increase from last month"
                             isPrimary={true}
@@ -86,8 +108,8 @@ function Dashboard() {
                         <DashboardCard
                             key={2}
                             index={2}
-                            title="Departments"
-                            value="32"
+                            title="Processing KYC"
+                            value={String(dashboard?.kycStatusCounts?.processing)}
                             icon={<RiBuilding4Line size={24} className="text-primary" />}
                             description="2 new departments added"
                             trend={{ type: 'increase', value: '+2' }}
@@ -98,8 +120,8 @@ function Dashboard() {
                         <DashboardCard
                             key={3}
                             index={3}
-                            title="Applications"
-                            value="1,286"
+                            title="Rejected KYC"
+                            value={String(dashboard?.kycStatusCounts?.rejected)}
                             icon={<RiFileList3Line size={24} className="text-primary" />}
                             description="8% decrease from last month"
                             trend={{ type: 'decrease', value: '-8%' }}
@@ -110,8 +132,8 @@ function Dashboard() {
                         <DashboardCard
                             key={4}
                             index={4}
-                            title="Scheduled Appointments"
-                            value="842"
+                            title="Accepted KYC"
+                            value={String(dashboard?.kycStatusCounts?.verified)}
                             icon={<RiCalendarCheckLine size={24} className="text-primary" />}
                             description="120 appointments today"
                         />
@@ -125,7 +147,7 @@ function Dashboard() {
                     <div className="card h-80">
                         <h3 className="text-lg font-medium text-gray-700 mb-4">Recent Activity</h3>
                         <div className="space-y-4">
-                            {!isLoading && [1, 2, 3, 4].map((item) => (
+                            {loading === "idle" && [1, 2, 3, 4].map((item) => (
                                 <motion.div
                                     key={item}
                                     initial={{ opacity: 0, x: -20 }}
@@ -153,7 +175,7 @@ function Dashboard() {
                 <div className="card h-80">
                     <h3 className="text-lg font-medium text-gray-700 mb-4">Quick Actions</h3>
                     <div className="space-y-3">
-                        {!isLoading && [
+                        {loading === "idle" && [
                             'Create new citizen record',
                             'Schedule appointment',
                             'Generate report',

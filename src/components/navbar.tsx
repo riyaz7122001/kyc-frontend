@@ -1,19 +1,21 @@
 import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { RiMenuLine, RiLogoutBoxLine, RiUser3Line, RiLockPasswordLine } from 'react-icons/ri'
+import { UserDetails } from '../types'
+import { handleApiError, showToast } from '../helpers'
+import { logout } from '../services/auth'
+import { useNavigate } from 'react-router-dom'
 
 type NavbarProps = {
-    user: {
-        name: string;
-        email: string;
-        role: string;
-    };
+    user: UserDetails | null;
     sidebarOpen: boolean;
     toggleSidebar: () => void;
     onChangePassword: () => void;
 }
 
 export default function Navbar({ user, toggleSidebar, onChangePassword }: NavbarProps) {
+    const role = sessionStorage.getItem("kno-access");
+    const navigate = useNavigate();
     const [profileOpen, setProfileOpen] = useState(false)
     const profileRef = useRef<HTMLDivElement | null>(null);
 
@@ -31,7 +33,20 @@ export default function Navbar({ user, toggleSidebar, onChangePassword }: Navbar
     }, [])
 
     const getInitials = (name: string) => {
+        if (!name) return ""
         return name.toString()?.split(" ")?.map(char => char.charAt(0)?.toUpperCase())
+    }
+
+    const handleLogout = async () => {
+        try {
+            const response = await logout(JSON.parse(role!));
+            sessionStorage.clear();
+            localStorage.clear();
+            navigate("/login");
+            showToast("success", response.data.message);
+        } catch (error) {
+            handleApiError(error, "Error while logout");
+        }
     }
 
     return (
@@ -74,13 +89,13 @@ export default function Navbar({ user, toggleSidebar, onChangePassword }: Navbar
                     >
                         {/* Avatar with initials */}
                         <div className="w-9 h-9 rounded-full bg-primary text-white flex items-center justify-center font-medium">
-                            {getInitials(user.name)}
+                            {getInitials(user?.firstName!)}{getInitials(user?.lastName!)}
                         </div>
 
                         {/* Name (hide on small screens) */}
                         <div className="hidden md:block text-left">
-                            <p className="text-sm font-medium text-gray-700">{user.name}</p>
-                            <p className="text-xs text-gray-500">{user.role}</p>
+                            <p className="text-sm font-medium text-gray-700">{user?.firstName} {user?.lastName}</p>
+                            <p className="text-xs text-gray-500">{user?.role?.role?.toUpperCase()}</p>
                         </div>
                     </button>
 
@@ -95,8 +110,8 @@ export default function Navbar({ user, toggleSidebar, onChangePassword }: Navbar
                                 className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-50"
                             >
                                 <div className="px-4 py-2 border-b border-gray-100">
-                                    <p className="text-sm font-medium text-gray-700">{user.name}</p>
-                                    <p className="text-xs text-gray-500">{user.email}</p>
+                                    <p className="text-sm font-medium text-gray-700">{user?.firstName} {user?.lastName}</p>
+                                    <p className="text-xs text-gray-500">{user?.email}</p>
                                 </div>
                                 <button
                                     className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center"
@@ -115,7 +130,7 @@ export default function Navbar({ user, toggleSidebar, onChangePassword }: Navbar
                                     Change Password
                                 </button>
                                 <div className="border-t border-gray-100 mt-1"></div>
-                                <button className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 flex items-center">
+                                <button className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 flex items-center" onClick={handleLogout}>
                                     <RiLogoutBoxLine className="mr-2" />
                                     Logout
                                 </button>
