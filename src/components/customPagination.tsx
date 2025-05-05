@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { HiArrowNarrowRight, HiArrowNarrowLeft } from "react-icons/hi";
-import '../../css/custompagination.css';
+import "../css/custompagination.css";
 
 type CustomPaginationProps = {
     rowsPerPage: number;
     rowCount: number;
     currentPage: number;
-    onChangePage: (page: number) => void;
+    onChangePage: (page: number, totalRows: number) => void;
 };
 
 export default function CustomPagination({ rowsPerPage, rowCount, currentPage, onChangePage }: CustomPaginationProps) {
@@ -71,12 +71,12 @@ export default function CustomPagination({ rowsPerPage, rowCount, currentPage, o
 
     const onPreviousClick = () => {
         if (currentPage === 1) return;
-        onChangePage(currentPage - 1);
+        onChangePage(currentPage - 1, rowCount);
     }
 
     const onNextClick = () => {
         if (currentPage === totalPages) return;
-        onChangePage(currentPage + 1);
+        onChangePage(currentPage + 1, rowCount);
     }
 
     return (
@@ -92,7 +92,7 @@ export default function CustomPagination({ rowsPerPage, rowCount, currentPage, o
                 {
                     paginationLinks.map((page, idx) => (
                         <div
-                            onClick={() => page !== '...' && onChangePage(page as number)}
+                            onClick={() => page !== '...' && onChangePage(page as number, rowCount)}
                             key={idx}
                             className="flex-center pagination-links"
                             style={{

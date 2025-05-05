@@ -13,3 +13,5 @@ export type UserDetails = {
         role: Role
     }
 }
+
+export type Status = "pending" | "verified" | "processing" | "rejected";

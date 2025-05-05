@@ -20,3 +20,11 @@ export const logout = async (role: Role) => {
     const response = api.get(`/api/${role}/protected/auth/logout`);
     return response;
 }
+
+export const changePassword = async (role: Role, password: string, newPassword: string) => {
+    const response = api.put(`/api/${role}/protected/auth/change-password`, {
+        password,
+        newPassword
+    });
+    return response;
+}

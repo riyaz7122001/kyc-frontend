@@ -4,18 +4,18 @@ import { Form, Link } from "react-router-dom";
 import CustomButton from "../../../components/customButton";
 import CustomInput from "../../../components/customInput";
 import CustomLabel from "../../../components/customLabel";
-import { LoginFormType, loginSchema } from "../../../schemas/auth";
+import { registerSchema, RegisterType } from "../../../schemas/auth";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { LoadingState } from "../../../types";
 
 export default function RegisterForm() {
-    const { register, handleSubmit, formState: { errors } } = useForm<LoginFormType>({
-        resolver: yupResolver(loginSchema)
+    const { register, handleSubmit, formState: { errors } } = useForm<RegisterType>({
+        resolver: yupResolver(registerSchema)
     });
     const [loading, setLoading] = useState<LoadingState>("idle");
 
-    const onSubmit = async (data: LoginFormType) => {
+    const onSubmit = async (data: RegisterType) => {
         console.log("data", data);
     };
 
@@ -24,28 +24,28 @@ export default function RegisterForm() {
     return (
         <Form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
             <div>
-                <CustomLabel htmlFor="email" required>
+                <CustomLabel htmlFor="firstName" required>
                     First Name
                 </CustomLabel>
                 <CustomInput
-                    id="email"
+                    id="firstName"
                     placeholder="First Name"
-                    autoComplete="email"
-                    {...register('email')}
+                    autoComplete="firstName"
+                    {...register('firstName')}
                 />
-                {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
+                {errors.firstName && <p className="text-red-500 text-xs mt-1">{errors.firstName.message}</p>}
             </div>
             <div>
-                <CustomLabel htmlFor="email" required>
+                <CustomLabel htmlFor="lastName" required>
                     Last Name
                 </CustomLabel>
                 <CustomInput
-                    id="email"
+                    id="lastName"
                     placeholder="Last Name"
-                    autoComplete="email"
-                    {...register('email')}
+                    autoComplete="lastName"
+                    {...register('lastName')}
                 />
-                {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
+                {errors.lastName && <p className="text-red-500 text-xs mt-1">{errors.lastName.message}</p>}
             </div>
             <div>
                 <CustomLabel htmlFor="email" required>
@@ -60,16 +60,16 @@ export default function RegisterForm() {
                 {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
             </div>
             <div>
-                <CustomLabel htmlFor="email" required>
+                <CustomLabel htmlFor="phone" required>
                     Phone
                 </CustomLabel>
                 <CustomInput
-                    id="email"
+                    id="phone"
                     placeholder="Phone Number"
-                    autoComplete="email"
-                    {...register('email')}
+                    autoComplete="phone"
+                    {...register('phone')}
                 />
-                {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
+                {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone.message}</p>}
             </div>
             <CustomButton type="submit" className="mt-2 w-full">
                 Sign Up

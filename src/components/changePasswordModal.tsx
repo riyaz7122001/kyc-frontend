@@ -1,6 +1,11 @@
 import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
 import { motion, AnimatePresence } from 'framer-motion'
 import { RiCloseLine, RiLockPasswordLine, RiEyeLine, RiEyeOffLine } from 'react-icons/ri'
+import { changePasswordSchema, ChangePasswordType } from '../schemas/auth'
+import { handleApiError, showToast } from '../helpers'
+import { changePassword } from '../services/auth'
 
 type ChangePasswordProps = {
     isOpen: boolean;
@@ -11,24 +16,21 @@ function ChangePasswordModal({ isOpen, onClose }: ChangePasswordProps) {
     const [showCurrentPassword, setShowCurrentPassword] = useState(false)
     const [showNewPassword, setShowNewPassword] = useState(false)
     const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+    const role = sessionStorage.getItem("kno-access");
 
-    const [formData, setFormData] = useState({
-        currentPassword: '',
-        newPassword: '',
-        confirmPassword: ''
+    const { register, handleSubmit, formState: { errors }, reset, } = useForm<ChangePasswordType>({
+        resolver: yupResolver(changePasswordSchema),
     })
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target
-        setFormData(prev => ({
-            ...prev,
-            [name]: value
-        }))
-    }
-
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        onClose()
+    const onSubmit = async (data: ChangePasswordType) => {
+        try {
+            const response = await changePassword(JSON.parse(role!), data.currentPassword, data.newPassword);
+            showToast("success", response.data.message);
+            onClose()
+            reset()
+        } catch (error) {
+            handleApiError(error, "Error while changing password");
+        }
     }
 
     const backdropVariants = {
@@ -72,7 +74,7 @@ function ChangePasswordModal({ isOpen, onClose }: ChangePasswordProps) {
                             </button>
                         </div>
 
-                        <form onSubmit={handleSubmit} className="p-5">
+                        <form onSubmit={handleSubmit(onSubmit)} className="p-5">
                             <div className="space-y-4">
                                 {/* Current Password */}
                                 <div>
@@ -82,11 +84,8 @@ function ChangePasswordModal({ isOpen, onClose }: ChangePasswordProps) {
                                     <div className="relative">
                                         <input
                                             type={showCurrentPassword ? "text" : "password"}
-                                            name="currentPassword"
-                                            value={formData.currentPassword}
-                                            onChange={handleChange}
+                                            {...register("currentPassword")}
                                             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors"
-                                            required
                                         />
                                         <button
                                             type="button"
@@ -96,6 +95,9 @@ function ChangePasswordModal({ isOpen, onClose }: ChangePasswordProps) {
                                             {showCurrentPassword ? <RiEyeOffLine /> : <RiEyeLine />}
                                         </button>
                                     </div>
+                                    {errors.currentPassword && (
+                                        <p className="text-sm text-red-600 mt-1">{errors.currentPassword.message}</p>
+                                    )}
                                 </div>
 
                                 {/* New Password */}
@@ -106,11 +108,8 @@ function ChangePasswordModal({ isOpen, onClose }: ChangePasswordProps) {
                                     <div className="relative">
                                         <input
                                             type={showNewPassword ? "text" : "password"}
-                                            name="newPassword"
-                                            value={formData.newPassword}
-                                            onChange={handleChange}
+                                            {...register("newPassword")}
                                             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors"
-                                            required
                                         />
                                         <button
                                             type="button"
@@ -120,6 +119,9 @@ function ChangePasswordModal({ isOpen, onClose }: ChangePasswordProps) {
                                             {showNewPassword ? <RiEyeOffLine /> : <RiEyeLine />}
                                         </button>
                                     </div>
+                                    {errors.newPassword && (
+                                        <p className="text-sm text-red-600 mt-1">{errors.newPassword.message}</p>
+                                    )}
                                 </div>
 
                                 {/* Confirm Password */}
@@ -130,11 +132,8 @@ function ChangePasswordModal({ isOpen, onClose }: ChangePasswordProps) {
                                     <div className="relative">
                                         <input
                                             type={showConfirmPassword ? "text" : "password"}
-                                            name="confirmPassword"
-                                            value={formData.confirmPassword}
-                                            onChange={handleChange}
+                                            {...register("confirmPassword")}
                                             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors"
-                                            required
                                         />
                                         <button
                                             type="button"
@@ -144,6 +143,9 @@ function ChangePasswordModal({ isOpen, onClose }: ChangePasswordProps) {
                                             {showConfirmPassword ? <RiEyeOffLine /> : <RiEyeLine />}
                                         </button>
                                     </div>
+                                    {errors.confirmPassword && (
+                                        <p className="text-sm text-red-600 mt-1">{errors.confirmPassword.message}</p>
+                                    )}
                                 </div>
                             </div>
 
