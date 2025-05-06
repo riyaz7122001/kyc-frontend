@@ -10,11 +10,20 @@ import { Form } from 'react-router-dom';
 import Loader from './customSpinner';
 import { useState } from 'react';
 import { LoadingState } from '../types';
+import { handleApiError, showToast } from '../helpers';
+import { createCitizen } from '../services/citizen';
 
 type AddCitizenModalProps = {
     isOpen: boolean;
     onClose: () => void;
 };
+
+export type CreateCitizenDetails = {
+    firstName: string;
+    lastName: string;
+    email: string;
+    phone: string;
+}
 
 function AddCitizenModal({ isOpen, onClose }: AddCitizenModalProps) {
     const { register, handleSubmit, formState: { errors } } = useForm<RegisterType>({
@@ -37,7 +46,24 @@ function AddCitizenModal({ isOpen, onClose }: AddCitizenModalProps) {
     const [loading, setLoading] = useState<LoadingState>("idle");
 
     const onSubmit = async (data: RegisterType) => {
+        console.log("data", data)
         console.log("data", data);
+        try {
+            setLoading("loading");
+            const payload = {
+                firstName: data.firstName,
+                lastName: data.lastName,
+                email: data.email,
+                phone: data.phone
+            }
+            const response = await createCitizen(payload);
+            showToast("success", response.data.message);
+            setLoading("idle");
+            onClose();
+        } catch (error) {
+            setLoading("error");
+            handleApiError(error, "Error while creating citizen");
+        }
     };
 
     if (loading === "loading") return <Loader styles={{ position: 'absolute', height: '100%', top: '0', left: '0', backgroundColor: '#fcfcfc50' }} />

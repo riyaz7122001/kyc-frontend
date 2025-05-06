@@ -22,9 +22,16 @@ export const logout = async (role: Role) => {
 }
 
 export const changePassword = async (role: Role, password: string, newPassword: string) => {
-    const response = api.put(`/api/${role}/protected/auth/change-password`, {
-        password,
-        newPassword
-    });
+    const response = api.put(`/api/${role}/protected/auth/change-password`, { password, newPassword });
+    return response;
+}
+
+export const registerCitizen = async (firstName: string, lastName: string, email: string, phone: string) => {
+    const response = api.post(`/api/citizen/auth/register`, { firstName, lastName, email, phone });
+    return response;
+}
+
+export const resetPassword = async (role: Role, emailToken: string, password: string) => {
+    const response = api.post(`/auth/${role}/auth/reset-password`, { emailToken, password });
     return response;
 }

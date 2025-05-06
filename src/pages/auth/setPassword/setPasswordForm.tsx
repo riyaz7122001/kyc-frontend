@@ -1,4 +1,4 @@
-import { Form } from "react-router-dom";
+import { Form, useLocation, useNavigate } from "react-router-dom";
 import { FormFeedback } from "reactstrap";
 import CustomButton from "../../../components/customButton";
 import CustomInput from "../../../components/customInput";
@@ -10,15 +10,38 @@ import { LoadingState } from "../../../types";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { handleApiError, showToast } from "../../../helpers";
+import { resetPassword } from "../../../services/auth";
 
 export default function SetPasswordForm() {
     const { register, handleSubmit, formState: { errors } } = useForm<ResetPasswordType>({
         resolver: yupResolver(resetPasswordSchema)
     });
     const [loading, setLoading] = useState<LoadingState>("idle");
+    const navigate = useNavigate();
+    const role = sessionStorage.getItem("kno-access");
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location?.search);
+    const token = queryParams.get('token');
 
     const onSubmit = async (data: ResetPasswordType) => {
-        console.log(data)
+        try {
+            if (!token) {
+                showToast('error', 'Invalid token');
+                return
+            }
+            const password = data.password;
+            setLoading("loading");
+            const response = await resetPassword(JSON.parse(role!), token, password);
+            setLoading("idle");
+            showToast('success', response.data.message);
+            setTimeout(() => {
+                navigate('/login');
+            }, 1500);
+        } catch (error) {
+            setLoading("error");
+            handleApiError(error, "Error while setting password")
+        }
     };
 
     if (loading === "loading") return <Loader />
@@ -47,11 +70,10 @@ export default function SetPasswordForm() {
                     <CustomInput
                         id="confirmPassword"
                         placeholder="Confirm Password"
-                        invalid={!!errors.confirmPassword}
                         autoComplete="confirmPassword"
                         {...register("confirmPassword")}
                     />
-                    <FormFeedback>{errors.confirmPassword?.message}</FormFeedback>
+                    {errors.confirmPassword && <p className="text-red-500 text-xs mt-1">{errors.confirmPassword.message}</p>}
                 </HideShowPassword>
             </div>
             <CustomButton type='submit' className='mt-2 w-full'>

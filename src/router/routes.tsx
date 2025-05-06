@@ -33,12 +33,12 @@ export const routes = [
         needsAuth: false
     },
     {
-        path: "/reset-password",
+        path: "/auth/reset-password",
         element: <ResetPassword />,
         needsAuth: false
     },
     {
-        path: "/set-password",
+        path: "/auth/set-password",
         element: <SetPassword />,
         needsAuth: false
     },
