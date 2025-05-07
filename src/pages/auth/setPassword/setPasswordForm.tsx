@@ -1,5 +1,4 @@
 import { Form, useLocation, useNavigate } from "react-router-dom";
-import { FormFeedback } from "reactstrap";
 import CustomButton from "../../../components/customButton";
 import CustomInput from "../../../components/customInput";
 import CustomLabel from "../../../components/customLabel";
@@ -11,7 +10,7 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { handleApiError, showToast } from "../../../helpers";
-import { resetPassword } from "../../../services/auth";
+import { setPassword } from "../../../services/auth";
 
 export default function SetPasswordForm() {
     const { register, handleSubmit, formState: { errors } } = useForm<ResetPasswordType>({
@@ -19,7 +18,6 @@ export default function SetPasswordForm() {
     });
     const [loading, setLoading] = useState<LoadingState>("idle");
     const navigate = useNavigate();
-    const role = sessionStorage.getItem("kno-access");
     const location = useLocation();
     const queryParams = new URLSearchParams(location?.search);
     const token = queryParams.get('token');
@@ -32,7 +30,7 @@ export default function SetPasswordForm() {
             }
             const password = data.password;
             setLoading("loading");
-            const response = await resetPassword(JSON.parse(role!), token, password);
+            const response = await setPassword(token, password);
             setLoading("idle");
             showToast('success', response.data.message);
             setTimeout(() => {
@@ -73,11 +71,11 @@ export default function SetPasswordForm() {
                         autoComplete="confirmPassword"
                         {...register("confirmPassword")}
                     />
-                    {errors.confirmPassword && <p className="text-red-500 text-xs mt-1">{errors.confirmPassword.message}</p>}
                 </HideShowPassword>
+                {errors.confirmPassword && <p className="text-red-500 text-xs mt-1">{errors.confirmPassword.message}</p>}
             </div>
             <CustomButton type='submit' className='mt-2 w-full'>
-                Reset
+                Set Password
             </CustomButton>
         </Form>
     )

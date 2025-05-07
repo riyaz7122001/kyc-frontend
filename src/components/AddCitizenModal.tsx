@@ -25,7 +25,7 @@ export type CreateCitizenDetails = {
     phone: string;
 }
 
-function AddCitizenModal({ isOpen, onClose }: AddCitizenModalProps) {
+export default function AddCitizenModal({ isOpen, onClose }: AddCitizenModalProps) {
     const { register, handleSubmit, formState: { errors } } = useForm<RegisterType>({
         resolver: yupResolver(registerSchema)
     });
@@ -46,8 +46,6 @@ function AddCitizenModal({ isOpen, onClose }: AddCitizenModalProps) {
     const [loading, setLoading] = useState<LoadingState>("idle");
 
     const onSubmit = async (data: RegisterType) => {
-        console.log("data", data)
-        console.log("data", data);
         try {
             setLoading("loading");
             const payload = {
@@ -160,4 +158,3 @@ function AddCitizenModal({ isOpen, onClose }: AddCitizenModalProps) {
         </AnimatePresence>
     );
 }
-export default AddCitizenModal;

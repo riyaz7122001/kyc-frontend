@@ -1,6 +1,7 @@
 import { lazy } from "react";
 import PageNotFound from "../pages/notfound";
 import CitizenPage from "../pages/citizen";
+import ProfilePage from "../pages/dashboard/profilePage";
 
 const Login = lazy(() => import("../pages/auth/login"));
 const SignUp = lazy(() => import("../pages/auth/signup"));
@@ -57,6 +58,11 @@ export const routes = [
                 path: "/citizen",
                 element: <CitizenPage />,
                 index: true,
+                needsAuth: true
+            },
+            {
+                path: "/profile",
+                element: <ProfilePage />,
                 needsAuth: true
             },
         ],

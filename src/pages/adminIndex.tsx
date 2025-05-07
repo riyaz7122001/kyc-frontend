@@ -15,13 +15,11 @@ function DashboardLayout() {
     const [user, setUser] = useState<UserDetails | null>(null)
 
     const role = sessionStorage.getItem("kno-access");
-    console.log("role", JSON.parse(role!))
 
     useEffect(() => {
         const fetchUserData = async () => {
             try {
                 const response = await getUserDetails(JSON.parse(role!));
-                console.log("response", response.data.data);
                 setUser(response.data.data);
             } catch (error) {
                 handleApiError(error, "Getting error while fetching user data");

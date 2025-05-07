@@ -12,7 +12,7 @@ type SidebarProps = {
     toggleSidebar: () => void;
 }
 
-function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
+export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
     return (
         <motion.aside
             initial="open"
@@ -80,5 +80,3 @@ function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
         </motion.aside>
     )
 }
-
-export default Sidebar

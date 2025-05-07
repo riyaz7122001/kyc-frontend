@@ -115,6 +115,7 @@ export default function Navbar({ user, toggleSidebar, onChangePassword }: Navbar
                                 </div>
                                 <button
                                     className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center"
+                                    onClick={() => navigate("/profile")}
                                 >
                                     <RiUser3Line className="mr-2" />
                                     My Profile

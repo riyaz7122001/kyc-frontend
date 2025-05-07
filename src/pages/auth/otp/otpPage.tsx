@@ -15,7 +15,6 @@ export default function OtpPage() {
     const navigate = useNavigate();
     const location = useLocation();
     const { email, password } = location.state || {};
-    console.log("email", email, "password", password)
 
     const handleResendOtp = async () => {
         try {
@@ -31,7 +30,6 @@ export default function OtpPage() {
     }
 
     const handleOtpVerification = async (otp: string) => {
-        console.log("otp", typeof otp, otp)
         try {
             if (!email || !password) {
                 showToast("error", "Missing credentials. Please login again.");

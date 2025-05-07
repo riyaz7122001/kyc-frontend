@@ -31,7 +31,12 @@ export const registerCitizen = async (firstName: string, lastName: string, email
     return response;
 }
 
-export const resetPassword = async (role: Role, emailToken: string, password: string) => {
-    const response = api.post(`/auth/${role}/auth/reset-password`, { emailToken, password });
+export const resetPassword = async (emailToken: string, password: string) => {
+    const response = api.post(`/api/admin/auth/reset-password`, { emailToken, password });
+    return response;
+}
+
+export const setPassword = async (emailToken: string, password: string) => {
+    const response = api.post(`/api/admin/auth/set-password`, { emailToken, password });
     return response;
 }
